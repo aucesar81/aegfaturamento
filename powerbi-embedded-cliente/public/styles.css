@@ -1,0 +1,97 @@
+﻿:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #0b5fff;
+  --primary-soft: #e8f0ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #eaf1ff 0%, var(--bg) 45%);
+  color: var(--text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.app-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  grid-template-rows: auto auto 1fr;
+}
+
+.topbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.topbar h1 { margin: 0; font-size: 22px; }
+.topbar p { margin: 6px 0 0; color: var(--muted); }
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.menu button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.menu button.active {
+  background: var(--primary-soft);
+  border-color: #c9dcff;
+  color: var(--primary);
+}
+
+.viewer-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 70vh;
+}
+
+.status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+  background: #0f172a;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.status.ok { background: #166534; }
+.status.error { background: #b91c1c; }
+
+.report-container {
+  width: 100%;
+  height: 100%;
+  min-height: 70vh;
+}
+
+@media (max-width: 768px) {
+  .app-shell { padding: 12px; }
+  .topbar h1 { font-size: 18px; }
+  .menu button { flex: 1 1 calc(50% - 10px); }
+  .viewer-wrap, .report-container { min-height: 78vh; }
+}

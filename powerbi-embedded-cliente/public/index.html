@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Gestão</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <h1>Painel de Gestão</h1>
+      <p>Power BI Embedded | Ambiente Cliente</p>
+    </header>
+
+    <nav class="menu" id="menu"></nav>
+
+    <main class="viewer-wrap">
+      <div id="status" class="status">Carregando relatório...</div>
+      <section id="reportContainer" class="report-container"></section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
