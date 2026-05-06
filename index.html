@@ -13,6 +13,54 @@ body {
   transition:0.3s;
 }
 
+.auth-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(15, 23, 42, 0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+.auth-card {
+  width:min(90vw, 360px);
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 16px 30px rgba(0,0,0,0.18);
+}
+
+.auth-card h2 {
+  margin:0 0 10px;
+  font-size:18px;
+}
+
+.auth-card input {
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+
+.auth-card button {
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#111827;
+  color:#fff;
+  cursor:pointer;
+}
+
+.auth-error {
+  color:#b91c1c;
+  font-size:12px;
+  min-height:16px;
+  margin-bottom:8px;
+}
+
 /* APP */
 .app {
   width:390px;
@@ -137,11 +185,57 @@ function ativarDesktop(link, botao) {
 function voltarMobile() {
   document.getElementById("app").classList.remove("desktop");
 }
+
+const STATIC_USER = "abd";
+const STATIC_PASS_HASH = "8d969eef6ecad3c29a3a629280e686cff8fabd82f4f5d4fcbf6f2f8f8d6f7f57";
+
+async function sha256(text) {
+  const bytes = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", bytes);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function validarLogin() {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value;
+  const error = document.getElementById("authError");
+  const passHash = await sha256(pass);
+
+  if (user === STATIC_USER && passHash === STATIC_PASS_HASH) {
+    localStorage.setItem("abd_auth", "ok");
+    document.getElementById("authOverlay").style.display = "none";
+    return;
+  }
+
+  error.textContent = "Usuário ou senha inválidos.";
+}
+
+function sair() {
+  localStorage.removeItem("abd_auth");
+  document.getElementById("authOverlay").style.display = "flex";
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("abd_auth") === "ok") {
+    document.getElementById("authOverlay").style.display = "none";
+  }
+});
 </script>
 
 </head>
 
 <body>
+
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-card">
+    <h2>Acesso ao Painel</h2>
+    <input id="loginUser" type="text" placeholder="Usuário" />
+    <input id="loginPass" type="password" placeholder="Senha" />
+    <div id="authError" class="auth-error"></div>
+    <button onclick="validarLogin()">Entrar</button>
+  </div>
+</div>
 
 <div id="app" class="app">
 
@@ -173,6 +267,9 @@ function voltarMobile() {
     <div style="text-align:center;margin-top:10px;">
       <button onclick="voltarMobile()" style="font-size:10px;background:#eee;border-radius:8px;padding:6px 10px;">
         Voltar Mobile
+      </button>
+      <button onclick="sair()" style="font-size:10px;background:#eee;border-radius:8px;padding:6px 10px;">
+        Sair
       </button>
     </div>
 
