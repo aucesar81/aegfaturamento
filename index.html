@@ -25,7 +25,9 @@ iframe { width:100%; height:100%; min-height:calc(100vh - 120px); border:none; }
 @keyframes spin { 100% { transform:rotate(360deg); } }
 </style>
 <script>
-const REPORT_URL = "https://app.powerbi.com/view?r=eyJrIjoiYmYxZmQ3ZTEtNmJjZi00ZTg4LTk4YjItMjBhODM2NDA0ODQ0IiwidCI6ImZiMDM4NjA4LTUwZTctNGRhMy04NWM1LTVkZGQ0YzgyNGZhYyJ9";
+const REPORT_BASE_URL = "https://app.powerbi.com/view?r=eyJrIjoiYmYxZmQ3ZTEtNmJjZi00ZTg4LTk4YjItMjBhODM2NDA0ODQ0IiwidCI6ImZiMDM4NjA4LTUwZTctNGRhMy04NWM1LTVkZGQ0YzgyNGZhYyJ9";
+const REPORT_URL_FATURAMENTO = REPORT_BASE_URL + "&pageName=3bb1545865c4f116e721";
+const REPORT_URL_COMPRAS = REPORT_BASE_URL + "&pageName=a64d390e08d043599744";
 const STATIC_USER = "abd";
 const STATIC_PASS_HASH = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
 
@@ -87,13 +89,13 @@ window.addEventListener("DOMContentLoaded", () => {
 <div id="app" class="app" style="visibility:hidden;">
   <div class="header">Painel de Gestão - A&G Plásticos</div>
   <div class="menu">
-    <button onclick="trocarPagina(REPORT_URL, this)" class="active">Faturamento</button>
-    <button onclick="trocarPagina(REPORT_URL, this)">Compras</button>
+    <button onclick="trocarPagina(REPORT_URL_FATURAMENTO, this)" class="active">Faturamento</button>
+    <button onclick="trocarPagina(REPORT_URL_COMPRAS, this)">Compras</button>
     <button onclick="sair()">Sair</button>
   </div>
   <div class="viewer">
     <div id="loader" class="loader"><div class="spinner"></div></div>
-    <iframe id="frame" onload="carregou()" src="https://app.powerbi.com/view?r=eyJrIjoiYmYxZmQ3ZTEtNmJjZi00ZTg4LTk4YjItMjBhODM2NDA0ODQ0IiwidCI6ImZiMDM4NjA4LTUwZTctNGRhMy04NWM1LTVkZGQ0YzgyNGZhYyJ9" allowfullscreen="true"></iframe>
+    <iframe id="frame" onload="carregou()" src="https://app.powerbi.com/view?r=eyJrIjoiYmYxZmQ3ZTEtNmJjZi00ZTg4LTk4YjItMjBhODM2NDA0ODQ0IiwidCI6ImZiMDM4NjA4LTUwZTctNGRhMy04NWM1LTVkZGQ0YzgyNGZhYyJ9&pageName=3bb1545865c4f116e721" allowfullscreen="true"></iframe>
   </div>
 </div>
 </body>
